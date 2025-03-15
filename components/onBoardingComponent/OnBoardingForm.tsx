@@ -29,7 +29,7 @@ import {
 import { updateUser } from "@/actions/user";
 import  useFetch  from "@/hooks/useFetch";
 import { onboardingSchema } from "@/app/lib/schima";
-import { Industry } from "@/type/industries";
+import { Industry } from "@/types/industries";
 
 export interface dataType {
   industry: string;

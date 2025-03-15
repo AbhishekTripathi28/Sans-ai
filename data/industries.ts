@@ -1,4 +1,4 @@
-import { Industry } from "@/type/industries";
+import { Industry } from "@/types/industries";
 
 export const industries:Industry[] = [
     {

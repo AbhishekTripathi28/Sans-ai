@@ -17,6 +17,7 @@ import { generateQuiz, saveQuizResult } from "@/actions/interview";
 import { BarLoader } from "react-spinners";
 import useFetch from "@/hooks/useFetch";
 import QuizResult from "./QuizResult";
+import quizDataType from "@/types/interview/quizDatatype";
 
 export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -26,7 +27,11 @@ export default function Quiz() {
   const {
     loading: generatingQuiz,
     fn: generateQuizFn,
-    data: quizData,
+    data: quizData
+  }:{
+    loading: boolean;
+    fn: any;
+    data: quizDataType[];
   } = useFetch(generateQuiz);
 
   const {
@@ -38,7 +43,7 @@ export default function Quiz() {
 
   useEffect(() => {
     if (quizData) {
-      setAnswers(new Array(quizData.length).fill(null));
+      setAnswers(new Array(quizData?.length).fill(null));
     }
   }, [quizData]);
 
@@ -69,6 +74,9 @@ export default function Quiz() {
 
   const finishQuiz = async () => {
     const score = calculateScore();
+    console.log("Score:", score);
+    console.log("answers:", answers);
+    console.log("quizData:", quizData);
     try {
       await saveQuizResultFn({quizData, answers, score});
       toast.success("Quiz completed!");

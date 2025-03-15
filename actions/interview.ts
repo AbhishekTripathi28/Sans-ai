@@ -1,6 +1,8 @@
 "use server";
 
 import { db } from "@/lib/prisma";
+import answerType from "@/types/interview/answerType";
+import quizDataType from "@/types/interview/quizDatatype";
 import { auth } from "@clerk/nextjs/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
@@ -57,7 +59,7 @@ export async function generateQuiz() {
   }
 }
 
-export async function saveQuizResult({questions, answers, score}:any) {
+export async function saveQuizResult({quizData, answers, score}:{quizData:quizDataType[], answers:any[], score:number}) {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
@@ -67,7 +69,7 @@ export async function saveQuizResult({questions, answers, score}:any) {
 
   if (!user) throw new Error("User not found");
 
-  const questionResults = questions.map((q:any, index:number) => ({
+  const questionResults = quizData?.map((q:quizDataType, index:number) => ({
     question: q.question,
     answer: q.correctAnswer,
     userAnswer: answers[index],
@@ -76,14 +78,14 @@ export async function saveQuizResult({questions, answers, score}:any) {
   }));
 
   // Get wrong answers
-  const wrongAnswers = questionResults.filter((q:any) => !q.isCorrect);
+  const wrongAnswers = questionResults?.filter((q:any) => !q.isCorrect);
 
   // Only generate improvement tips if there are wrong answers
   let improvementTip = null;
-  if (wrongAnswers.length > 0) {
+  if (wrongAnswers?.length > 0) {
     const wrongQuestionsText = wrongAnswers
-      .map(
-        (q:any) =>
+      ?.map(
+        (q) =>
           `Question: "${q.question}"\nCorrect Answer: "${q.answer}"\nUser Answer: "${q.userAnswer}"`
       )
       .join("\n\n");

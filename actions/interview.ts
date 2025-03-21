@@ -1,7 +1,6 @@
 "use server";
 
 import { db } from "@/lib/prisma";
-import answerType from "@/types/interview/answerType";
 import quizDataType from "@/types/interview/quizDatatype";
 import { auth } from "@clerk/nextjs/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
@@ -78,7 +77,7 @@ export async function saveQuizResult({quizData, answers, score}:{quizData:quizDa
   }));
 
   // Get wrong answers
-  const wrongAnswers = questionResults?.filter((q:any) => !q.isCorrect);
+  const wrongAnswers = questionResults?.filter((q) => !q.isCorrect);
 
   // Only generate improvement tips if there are wrong answers
   let improvementTip = null;
@@ -86,6 +85,7 @@ export async function saveQuizResult({quizData, answers, score}:{quizData:quizDa
     const wrongQuestionsText = wrongAnswers
       ?.map(
         (q) =>
+           
           `Question: "${q.question}"\nCorrect Answer: "${q.answer}"\nUser Answer: "${q.userAnswer}"`
       )
       .join("\n\n");

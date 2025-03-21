@@ -27,11 +27,14 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { intustryDataTypes } from "@/types/dashboard/industryData";
 
-const DashboardView = ({ insights }:any) => {
-  console.log("insights", insights);
+
+
+const DashboardView = ({ insights }:{ insights : intustryDataTypes}) => {
+  
   // Transform salary data for the chart
-  const salaryData = insights.salaryRanges.map((range:any) => ({
+  const salaryData = insights?.salaryRanges?.map((range) => ({
     name: range.role,
     min: range.min / 1000,
     max: range.max / 1000,

@@ -27,6 +27,7 @@ import { deleteCoverLetter } from "@/actions/cover-letter";
 
 
 export default function CoverLetterList({ coverLetters }:any) {
+  console.log("coverLetters", coverLetters);
   const router = useRouter();
 
   const handleDelete = async (id:any) => {

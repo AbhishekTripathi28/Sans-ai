@@ -23,5 +23,7 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/onBoardingComponent/OnBoardingForm.tsx", "actions/user.ts", ".next/types/app/(main)/ai-cover-letter/[id]/page.tsx", ".next/types/app/(main)/ai-cover-letter/page.tsx", ".next/types/app/(main)/ai-cover-letter/new/page.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    // "node_modules"
+]
 }

@@ -2,13 +2,13 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { inngest } from "./client";
 import { db } from "../prisma";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY !);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export const generateIndustryInsights = inngest.createFunction(
   { id: "GenerateIndustryInsights", name: "Generate Industry Insights" },
   { cron: "0 0 * * 0" }, // Run every Sunday at midnight
-  async ({ event, step }) => {
+  async ({ step }) => {
     const industries = await step.run("Fetch industries", async () => {
       return await db.industryInsight.findMany({
         select: { industry: true },

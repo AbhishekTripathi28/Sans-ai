@@ -1,5 +1,7 @@
 // Helper function to convert entries to markdown
 export function entriesToMarkdown(entries:any, type:any) {
+  console.log("entries", entries);
+  console.log("type", type);
     if (!entries?.length) return "";
   
     return (

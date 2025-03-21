@@ -4,10 +4,16 @@ import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-export async function generateCoverLetter(data:any) {
+export interface CoverLetterData {
+  jobTitle: string;
+  companyName: string;
+  jobDescription: string;
+}
+
+export async function generateCoverLetter(data:CoverLetterData) {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
@@ -85,7 +91,7 @@ export async function getCoverLetters() {
   });
 }
 
-export async function getCoverLetter(id:any) {
+export async function getCoverLetter(id:string) {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
@@ -103,7 +109,7 @@ export async function getCoverLetter(id:any) {
   });
 }
 
-export async function deleteCoverLetter(id:any) {
+export async function deleteCoverLetter(id:string) {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 

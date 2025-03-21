@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
@@ -54,6 +53,7 @@ export default function CoverLetterGenerator() {
   }, [generatedLetter]);
 
   const onSubmit = async (data:any) => {
+    console.log("onSubmit data", data);
     try {
       await generateLetterFn(data);
     } catch (error:any) {

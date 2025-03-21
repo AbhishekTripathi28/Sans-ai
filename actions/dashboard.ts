@@ -3,12 +3,11 @@
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { CloudFog } from "lucide-react";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-export const generateAIInsights = async (industry:any) => {
+export const generateAIInsights = async (industry: string | null ) => {
   const prompt = `
           Analyze the current state of the ${industry} industry and provide insights in ONLY the following JSON format without any additional notes or explanations:
           {
@@ -50,13 +49,11 @@ export async function getIndustryInsights() {
     },
   });
 
-  console.log("user.industryInsight", user?.industryInsight );
-
   if (!user) throw new Error("User not found");
 
   // If no insights exist, generate them
   if (!user.industryInsight) {
-    const insights = await generateAIInsights(user.industry);
+    const insights = await generateAIInsights(user?.industry);
 
     const industryInsight = await db.industryInsight.create({
       data: {
@@ -66,7 +63,6 @@ export async function getIndustryInsights() {
       },
     });
 
-    console.log("industryInsight", industryInsight);
 
     return industryInsight;
   }

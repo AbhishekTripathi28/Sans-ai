@@ -4,7 +4,11 @@ import { Button } from "@/components/ui/button";
 import { getCoverLetter } from "@/actions/cover-letter";
 import CoverLetterPreview from "@/components/aiCoverLetterComponents/CoverLetterPreview";
 
-export default async function EditCoverLetterPage({ params }: { params: { id: string } }) {
+export interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function EditCoverLetterPage({ params }: PageProps) {
   const { id } = await params;
   const coverLetter = await getCoverLetter(id);
 

@@ -5,7 +5,7 @@ import { getCoverLetter } from "@/actions/cover-letter";
 import CoverLetterPreview from "@/components/aiCoverLetterComponents/CoverLetterPreview";
 
 export interface PageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string }| any>;
 }
 
 export default async function EditCoverLetterPage({ params }: PageProps) {

@@ -32,8 +32,6 @@ import { intustryDataTypes } from "@/types/dashboard/industryData";
 
 
 const DashboardView = ({ insights }:{ insights : intustryDataTypes}) => {
-  console.log("insights", insights);
-  console.log("insights.salaryRanges", insights.salaryRanges);
   // Transform salary data for the chart
   const salaryData = insights?.salaryRanges?.map((range:any) => ({
     name: range.role,

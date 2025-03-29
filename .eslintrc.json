@@ -1,0 +1,9 @@
+{
+  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "react/no-unescaped-entities": 0,
+    "react/jsx-key": 0,
+    "no-var": ["error", { "var": false }]
+  }
+}

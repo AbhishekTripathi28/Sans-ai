@@ -66,8 +66,6 @@ export async function getIndustryInsights() {
       },
     });
 
-    console.log("industryInsight", industryInsight);
-
     return industryInsight;
   }
 

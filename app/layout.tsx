@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
-import {  Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import Header from "@/components/header/Header";
 import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from '@clerk/themes'
+import { dark } from "@clerk/themes";
+import { Suspense } from "react";
+import Loader from "@/components/loader/PageLoader";
 
-const inter = Inter({subsets: ["latin"]});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,22 +23,22 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider
-    appearance={{
-      baseTheme: dark,
-    }}
-  >
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.className}`}
-      >
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${inter.className}`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-           <Header />
-            <main className="min-h-screen">{children}</main>
+            <Header />
+            <main className="min-h-screen">
+              <Suspense fallback={<Loader />}>{children}</Suspense>
+            </main>
             <Toaster richColors />
 
             <footer className="bg-muted/50 py-12">
@@ -45,8 +47,8 @@ export default function RootLayout({
               </div>
             </footer>
           </ThemeProvider>
-      </body>
-    </html>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }

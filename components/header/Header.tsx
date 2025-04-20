@@ -27,7 +27,7 @@ export default async function Header() {
       <nav className=" mx-auto my-auto px-4 h-16 flex items-center justify-between w-full">
         <Link href="/">
           <Image
-            src={"/logo.png"}
+            src={"/Vocatia.png"}
             alt="Sensai Logo"
             width={200}
             height={60}
